@@ -51,7 +51,7 @@ public class ProjectController {
     }
 
     @PutMapping("/manager/complete/{projectCode}") //update
-    public ResponseEntity<ResponseWrapper> managerCompleteProject(@PathVariable("projectCode")String projectCode){
+    public ResponseEntity<ResponseWrapper> managerCompleteProject(@PathVariable("projectCode")String projectCode){//
         projectService.complete(projectCode);
         return ResponseEntity.ok(new ResponseWrapper("Project is successfully completed",HttpStatus.OK));
     }
