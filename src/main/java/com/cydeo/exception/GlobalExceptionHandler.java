@@ -18,23 +18,23 @@ import java.util.Optional;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(TicketingProjectException.class)
+    @ExceptionHandler(TicketingProjectException.class)//whenever exception happens belongs to this class(TicketingProjectException) execute this code
     public ResponseEntity<ResponseWrapper> serviceException(TicketingProjectException se){
         String message = se.getMessage();
         return new ResponseEntity<>(ResponseWrapper.builder().success(false).code(HttpStatus.CONFLICT.value()).message(message).build(),HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
+    @ExceptionHandler(AccessDeniedException.class)//if any exception happens belongs to this class( AccessDeniedException (spring boot automaticly throw this exception,spring boot already using exception handling class) show return code
     public ResponseEntity<ResponseWrapper> accessDeniedException(AccessDeniedException se){
         String message = se.getMessage();
         return new ResponseEntity<>(ResponseWrapper.builder().success(false).code(HttpStatus.FORBIDDEN.value()).message(message).build(),HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler({Exception    .class, RuntimeException.class, Throwable.class, BadCredentialsException.class})
+    @ExceptionHandler({Exception    .class, RuntimeException.class, Throwable.class, BadCredentialsException.class})////if any exception happens belongs to this classes
     public ResponseEntity<ResponseWrapper> genericException(Throwable e, HandlerMethod handlerMethod) {
 
         Optional<DefaultExceptionMessageDto> defaultMessage = getMessageFromAnnotation(handlerMethod.getMethod());
-        if (defaultMessage.isPresent() && !ObjectUtils.isEmpty(defaultMessage.get().getMessage())) {
+        if (defaultMessage.isPresent() && !ObjectUtils.isEmpty(defaultMessage.get().getMessage())) {//if have default annatation
             ResponseWrapper response = ResponseWrapper
                     .builder()
                     .success(false)
