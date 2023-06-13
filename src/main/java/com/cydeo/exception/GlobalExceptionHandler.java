@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(TicketingProjectException.class)//whenever exception happens belongs to this class(TicketingProjectException) execute this code
+    @ExceptionHandler(TicketingProjectException.class)//which exception should be handled//whenever exception happens belongs to this class(TicketingProjectException) execute this code
     public ResponseEntity<ResponseWrapper> serviceException(TicketingProjectException se){
         String message = se.getMessage();
         return new ResponseEntity<>(ResponseWrapper.builder().success(false).code(HttpStatus.CONFLICT.value()).message(message).build(),HttpStatus.CONFLICT);
